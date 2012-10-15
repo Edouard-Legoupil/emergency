@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="description" content="Visualisation of recent population displacement emergencies">
+        <meta name="keywords" content="unhcr, refugee, emergency">
+        <meta http-equiv="Content-Language" content="en">
+        <META NAME="ROBOTS" content="index, follow, all">
+        <META NAME="Author" CONTENT="Edouard Legoupil">
+        <meta charset="UTF-8">
+        <title>Displacement Emergencies</title>
+
+        <link rel="stylesheet" type="text/css" href="css/MyFontsWebfontsKit.css"/>
+        <link rel="stylesheet" type="text/css" href="css/unhcrmap.css"/>
+        <link  rel="stylesheet" type="text/css" href='css/mapbox.css' />
+  <style>
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+
+        <link rel="shortcut icon" href="http://www.unhcr.org/favicon.ico" type="image/x-icon" />
+
+<!-- External libraries and site script -->
+        <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.6/mapbox.js'></script>
+        <script src="ext/jquery.min.js"></script>
+        <script src="ext/wax.ext.js"></script>
+        <script src="ext/mapbox.jquery.js"></script>
+        <script src="ext/mapbox.jquery.geocoder.js"></script>
+        <script src="ext/ie.js" type="text/javascript"></script>
+
+    </head>
+
+
+<body class="hero">
+
+
+<div id='map'></div>
+
+<div id="content">
+
+    <ul>
+
+      <li style="width: 0px; padding: 10px 0px 0px;" class="side-nav">
+        <div class="" style="display: block;" id="progress"></div>
+        <ul class="side-nav-links">
+          <li><a class="" data-control="layer" href="#syria" id='syr'>Syria  </a></li>
+          <li><a class="" data-control="layer" href="#mali" id='mli'>Mali   </a></li>
+          <li><a class="" data-control="layer" href="#southsudan" id='ssd'>Sudan</a></li>
+          <li><a class="" data-control="layer" href="#kivu" id='kiv'>Kivu, DRC</a></li>
+          <li class="special"><a class="on-page active" data-control="layer" id="intr" href="#intro">⇠</a></li>
+        </ul>
+      </li>
+      <li class="limiter">
+        <div class="about">
+
+            <p style="" id="intro">Since 1951, the United Nations High Commissionner for Refugees
+             is protecting refugees and displaced throughout the world.
+             During the last two years an unprecedent series of emergencies has occured.</p>
+
+            <div class="explore">
+                <a class="" style="" data-control="layer" id="explore" href="#syria"><span></span>
+                Current emergencies<span></span></a>
+                <a class="" style="" data-control="layer" id="donate" href="#donate"><span></span>
+                Current emergencies<span></span></a>
+            </div>
+
+            <p style="display: none;" id="nav-syr">Unrest in the Syrian Arab Republic has been mounting since March 2011, leading to the displacement of tens of thousands of civilians.</p>
+
+            <p style="display: none;" id="nav-mli">More than 450,000 people have fled their homes in Mali since fighting erupted in the north in January 2012 between a Tuareg rebel movement and Malian government forces.</p>
+
+            <p style="display: none;" id="nav-ssd">Since June 2011, heavy fighting between the Sudanese armed forces and the Sudan People's Liberation Movement-North in South Kordofan and Blue Nile states has driven tens of thousands of Sudanese refugees.</p>
+
+            <p style="display: none;" id="nav-kiv">Fighting erupted again in North Kivu province in eastern Democratic Republic of the Congo (DRC) between government forces and the M23 rebel movement in April 2012.</p>
+
+            <div style="display: none;" id="nav-0" class="layers">
+                <a data-control="layer" class="layer" href="#staff">Staff deployment</a>
+            </div>
+            <div style="display: none;" id="nav-1" class="layers">
+                <a data-control="layer" class="layer" href="#item">Relief items</a>
+            </div>
+            <div style="display: none;" id="nav-2" class="layers">
+                <a data-control="layer" class="layer" href="#appeal">Appeal</a>
+            </div>
+
+            <div style="display: none;" id="nav-3" class="layers">
+                <a data-control="layer" class="layer" href="#southsudan">see the situation in SouthSudan</a>
+            </div>
+            <div style="display: none;" id="nav-3" class="layers">
+               <a data-control="layer" id="mali" class="layer" href="#mali">Situation in Mali.</a>
+            </div>
+            <div style="display: none;" id="nav-3" class="layers">
+               <a data-control="layer" id="southsudan" class="layer" href="#kivu">Situation in the kivus.</a>
+            </div>
+            <div style="display: none;" id="nav-3" class="layers">
+               <a data-control="layer" id="kivu" class="layer" href="#conclusion">funding situation</a>
+            </div>
+            <p style="display: none;" id="crisis"> Crisis.</p>
+            <div style="display: none;" id="watch-video">
+                <a id="play" href="#">Watch the video</a>
+            </div>
+            <div class="donate">
+                <a style="display: none;" id="donate" href="http://www.unhcr.org/make-donation" target="_blank">Support UNHCR</a>
+            </div>
+
+
+        </div>
+      </li>
+    </ul>
+
+</div>
+
+
+<script>
+
+ // Create first map
+ // mapbox.auto('map', 'unhcr.map-ohec27wu', function(map) {
+
+//mapbox.load(['unhcr.map-sclu9410', //background
+//     'unhcr.malibase', //dispalcement arrows
+//     'unhcr.map-hj83vh1a' //intervention
+//     'unhcr.map-ohec27wu' // unhcr offices
+//     ],
+//function(data) {
+//    var map = mapbox.map('map');
+
+  var map = mapbox.map('map');
+  var layers = document.getElementById('map-ui');
+
+  map.addLayer(mapbox.layer().id('unhcr.map-sclu9410')); //background
+
+// retrive the right layers
+  map.getLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // unhcr offices
+  map.getLayer(mapbox.layer().id('unhcr.malibase')); //dispalcement arrows
+  map.getLayer(mapbox.layer().id('unhcr.unhcr_exp_reg_2011')); //expenditure
+  map.getLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
+
+//all back 2011  map.addLayer(mapbox.layer().id('unhcr.map-hj83vh1a'));
+// Do not composite base layer with other layers
+//    map.getLayer('background').composite(false);
+
+
+
+
+    // Add tools to the map
+    map.ui.zoomer.add();
+    map.ui.zoombox.add();
+    map.ui.fullscreen.add();
+    // Set initial center and zoom
+    map.setCenterZoom({
+        lat: 5,
+        lon: 45
+    }, 2);
+    //set zomm range
+    map.setZoomRange(2, 9);
+
+
+
+//navigation in the storyboard - based on twitterbootstrap hero
+        function movetoSyria() {
+            $('#intro').css('display','none');
+            $('#explore').css('display','none');
+            $('#nav-mli').css('display','none');
+            $('#nav-ssd').css('display','none');
+            $('#nav-kiv').css('display','none');
+            $('#nav-0').fadeIn('300');
+            $('#nav-1').fadeIn('300');
+            $('#nav-syr').css('display','block').addClass('cont0').removeClass('cont1').removeClass('cont2');
+            }
+        function movetoMali() {
+            $('#intro').css('display','none');
+            $('#explore').css('display','none');
+            $('#nav-ssd').css('display','none');
+            $('#nav-kiv').css('display','none');
+            $('#nav-syr').css('display','none');
+            $('#nav-0').fadeIn('300');
+            $('#nav-1').fadeIn('300');
+            $('#nav-mli').css('display','block').addClass('cont0').removeClass('cont1').removeClass('cont2');
+            }
+        function movetoSouthsudan() {
+            $('#intro').css('display','none');
+            $('#explore').css('display','none');
+            $('#nav-syr').css('display','none');
+            $('#nav-kiv').css('display','none');
+            $('#nav-mli').css('display','none');
+            $('#nav-0').fadeIn('300');
+            $('#nav-1').fadeIn('300');
+            $('#nav-ssd').css('display','block').removeClass('cont0').removeClass('cont1').addClass('cont2');
+            }
+        function movetoKivu() {
+            $('#intro').css('display','none');
+            $('#explore').css('display','none');
+            $('#nav-syr').css('display','none');
+            $('#nav-mli').css('display','none');
+            $('#nav-ssd').css('display','none');
+            $('#nav-0').fadeIn('300');
+            $('#nav-1').fadeIn('300');
+            $('#nav-kiv').css('display','block').removeClass('cont0').removeClass('cont2').addClass('cont1');
+            }
+        function movetoIntro() {
+            $('#nav-syr').css('display','none');
+            $('#nav-mli').css('display','none');
+            $('#nav-ssd').css('display','none');
+            $('#nav-kiv').css('display','none');
+            $('#explore').fadeIn('300');
+            $('#intro').removeClass('intro').removeClass('cont1').removeClass('cont2');
+            $('.side-nav').css('width','0px')
+                .css('padding','10px 0px 0px 0px');
+            }
+
+    // Run easings when certain links are clicked
+      document.getElementById('intro').onclick = function() {
+        map.ease.location({ lat: 10, lon: 10 }).zoom(3).optimal();
+        return false;
+      }
+      document.getElementById('syr').onclick = function() {
+        map.ease.location({ lat: 34.7, lon: 38.2 }).zoom(6).optimal();
+        return false;
+      }
+      document.getElementById('mli').onclick = function() {
+        map.ease.location({ lat: 17.1, lon: -1.9 }).zoom(5).optimal();
+        return false;
+      }
+      document.getElementById('ssd').onclick = function() {
+        map.ease.location({ lat: 7.2, lon: 30.5 }).zoom(6).optimal();
+        return false;
+      }
+      document.getElementById('kiv').onclick = function() {
+        map.ease.location({ lat: -1.68, lon: 29.23 }).zoom(7).optimal();
+        return false;
+      }
+
+// Precise what shoudl be displayed
+        $('#explore').click(function(e){
+            e.preventDefault();
+            $('#syria').addClass('on-page');
+            $('.side-nav').css('width','122px')
+                .css('padding','10px 66px 10px 0px');
+            $('#intro').removeClass('on-page');
+            movetoSyria();
+            });
+        $('#intro').click(function (e) {
+            e.preventDefault();
+            movetoIntro();
+            $('#kivu').removeClass('on-page');
+            $('#mali').removeClass('on-page');
+            $('#southsudan').removeClass('on-page');
+            $('#syria').removeClass('on-page');
+            });
+        $('.side-nav ul a').click(function (e) {
+        e.preventDefault();
+        $('.side-nav ul a').removeClass('on-page');
+        $(this).addClass('on-page');
+                if(this.id=='syr') {
+                        movetoSyria();
+                }
+                if(this.id=='mli'){
+                        movetoMali();
+                }
+                if(this.id=='ssd') {
+                        movetoSouthsudan();
+                }
+                if(this.id=='kiv') {
+                        movetoKivu();
+                }
+        });
+
+
+
+        $('#syria').click(function(e){
+            e.preventDefault();
+            $('#syria').addClass('on-page');
+            $('#mali').removeClass('on-page');
+            $('#kivu').removeClass('on-page');
+            $('#southsudan').removeClass('on-page');
+            $('#intro').removeClass('on-page');
+            $('#conclusion').removeClass('on-page');
+            movetoSyria();
+            });
+        $('#mali').click(function(e){
+            e.preventDefault();
+            $('#mali').addClass('on-page');
+            $('#southsudan').removeClass('on-page');
+            $('#syria').removeClass('on-page');
+            $('#kivu').removeClass('on-page');
+            $('#intro').removeClass('on-page');
+            $('#conclusion').removeClass('on-page');
+            movetoMali();
+            });
+        $('#southsudan').click(function(e){
+            e.preventDefault();
+            $('#southsudan').addClass('on-page');
+            $('#kivu').removeClass('on-page');
+            $('#syria').removeClass('on-page');
+            $('#mali').removeClass('on-page');
+            $('#intro').removeClass('on-page');
+            $('#conclusion').removeClass('on-page');
+            movetoSouthsudan();
+            });
+        $('#kivu').click(function(e){
+            e.preventDefault();
+            $('#kivu').addClass('on-page');
+            $('#mali').removeClass('on-page');
+            $('#syria').removeClass('on-page');
+            $('#southsudan').removeClass('on-page');
+            $('#intro').removeClass('on-page');
+            $('#conclusion').removeClass('on-page');
+            movetoKivu();
+            });
+
+  </script>
+
+</body>
+</html>
+
