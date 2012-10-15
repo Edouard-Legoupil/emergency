@@ -83,6 +83,18 @@ mapbox.load(baseLayers,function(o){
 });
 
 
+    // Refresh map, change overlay
+    function refreshMap(index_add) {
+        mapbox.load(layers,function(o){
+          m.removeLayerAt(1);   
+          m.addLayer(o[index_add].layer);   
+          m.ui.refresh();
+          m.interaction.refresh();
+          m.ui.zoombox.add();
+        });
+    }
+
+
     // Run easings when certain links are clicked
 
       document.getElementById('intro').onclick = function() {
@@ -95,6 +107,7 @@ mapbox.load(baseLayers,function(o){
         m.addLayer(o[3].layer);
         m.removeLayerAt(3);
         m.removeLayerAt(4);
+        refreshMap(2);
 */
         m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
