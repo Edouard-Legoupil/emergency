@@ -1,5 +1,4 @@
 emergency
-
 =========
 
 This a visualisation of Current emergencies --
@@ -10,5 +9,5 @@ The app is developped with
 - Mapbox API (mapbox.js)
 - Jquery
 
-the app cane be visualised here:
+the app can be visualised here:
 http://edouard-legoupil.github.com/emergency
