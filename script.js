@@ -87,12 +87,14 @@ mapbox.load(baseLayers,function(o){
         m.ui.attribution.add();
         m.ui.refresh();
         m.interaction.auto();
+        m.interaction.refresh();
+        m.ui.zoombox.add();
         m.centerzoom({ lat: 5, lon: 45 }, 3, true);
         m.setZoomRange(2, 8);
         m.smooth(true);
 });
 
-
+/*
     // Refresh map, change overlay
     function refreshMap(index_add) {
         mapbox.load(layers,function(o){
@@ -103,7 +105,7 @@ mapbox.load(baseLayers,function(o){
           m.ui.zoombox.add();
         });
     }
-
+*/
     // add layer
 /*
 m.addLayer(mapbox.layer().id('unhcr.map-sclu9410'));// base layer index 0
