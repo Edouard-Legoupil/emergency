@@ -59,17 +59,27 @@ function isTouchDevice(e) {
 
 
 // pusuh all layers in one array
- baseLayers =[];
- baseLayers.push('unhcr.map-sclu9410');// base layer index 0
+  baseLayers =[];
+ baseLayers.push('unhcr.map-x6lwltoe');// base layer index 0
+/*baseLayers.push('unhcr.map-sclu9410');// base layer index 0 
  baseLayers.push('unhcr.unhcr_2011_deploy'); // deployement index 1
  baseLayers.push('unhcr.pop_flow'); //displacement arrows index 2
  baseLayers.push('unhcr.UNHCR-Offices'); // office index 3
  baseLayers.push('unhcr.unhcr_exp_reg_2011'); //expenditure index 4
+ * 
+ * 
+ * m.addLayer(mapbox.layer().id('unhcr.map-x6lwltoe'));
+*/
 
 mapbox.load(baseLayers,function(o){
         m = mapbox.map('map');
         m.addLayer(o[0].layer);
+        /*
         m.addLayer(o[1].layer);
+        * m.addLayer(o['unhcr.map-x6lwltoe'].layer);
+        */ 
+        
+        
         m.ui.zoomer.add();
         m.ui.fullscreen.add();
         m.ui.zoombox.add();
@@ -86,13 +96,22 @@ mapbox.load(baseLayers,function(o){
     // Refresh map, change overlay
     function refreshMap(index_add) {
         mapbox.load(layers,function(o){
-          m.removeLayerAt(1);   
-          m.addLayer(o[index_add].layer);   
+          m.removeLayerAt(1);
+          m.addLayer(o[index_add].layer);
           m.ui.refresh();
           m.interaction.refresh();
           m.ui.zoombox.add();
         });
     }
+
+    // add layer
+/*
+m.addLayer(mapbox.layer().id('unhcr.map-sclu9410'));// base layer index 0
+m.addLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement index 1
+m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows index 2
+m.addLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // office index 3
+m.addLayer(mapbox.layer().id('unhcr.unhcr_exp_reg_2011')); //expenditure index 4
+/**/
 
 
     // Run easings when certain links are clicked
@@ -108,57 +127,72 @@ mapbox.load(baseLayers,function(o){
         m.removeLayerAt(3);
         m.removeLayerAt(4);
         refreshMap(2);
-*/
-        m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
+        m.enableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
         m.disableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
-        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement   
-        m.ui.refresh();
-	m.interaction.refresh();
+        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
+*/
+        m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows 
+        m.enableLayer('unhcr.pop_flow'); //displacement arrows
+        m.disableLayer('unhcr.UNHCR-Offices'); // offices
+        m.disableLayer('unhcr.map-hj83vh1a'); //intervention
+        m.disableLayer('unhcr.unhcr_2011_deploy'); // deployement
         return false;
       }
       document.getElementById('syr').onclick = function() {
         m.ease.location({ lat: 34.7, lon: 38.2 }).zoom(6).optimal();
-/**/
-        m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
+/*
+         m.enableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
         m.disableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
-        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement   
-        m.ui.refresh();
-        m.interaction.refresh();
+        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
+ */
+        m.enableLayer('unhcr.pop_flow'); //displacement arrows
+        m.disableLayer('unhcr.UNHCR-Offices'); // offices
+        m.disableLayer('unhcr.map-hj83vh1a'); //intervention
+        m.disableLayer('unhcr.unhcr_2011_deploy'); // deployement
         return false;
       }
       document.getElementById('mli').onclick = function() {
         m.ease.location({ lat: 17.1, lon: -1.9 }).zoom(6).optimal();
-/**/
-        m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
+/*
+        m.enableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
         m.disableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
-        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement   
-        m.ui.refresh();
-        m.interaction.refresh();
+        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
+ */
+        m.enableLayer('unhcr.pop_flow'); //displacement arrows
+        m.disableLayer('unhcr.UNHCR-Offices'); // offices
+        m.disableLayer('unhcr.map-hj83vh1a'); //intervention
+        m.disableLayer('unhcr.unhcr_2011_deploy'); // deployement
         return false;
       }
       document.getElementById('ssd').onclick = function() {
         m.ease.location({ lat: 7.2, lon: 30.5 }).zoom(6).optimal();
-/**/
-        m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
+/*
+        m.enableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
         m.disableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
-        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement  
-        m.ui.refresh();
-        m.interaction.refresh();
+        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
+ */
+        m.enableLayer('unhcr.pop_flow'); //displacement arrows
+        m.disableLayer('unhcr.UNHCR-Offices'); // offices
+        m.disableLayer('unhcr.map-hj83vh1a'); //intervention
+        m.disableLayer('unhcr.unhcr_2011_deploy'); // deployement
         return false;
       }
       document.getElementById('kiv').onclick = function() {
         m.ease.location({ lat: -1.68, lon: 29.23 }).zoom(7).optimal();
-/**/
-        m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
+/*
+          m.enableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
         m.disableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
-        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement  
-        m.ui.refresh();
-        m.interaction.refresh();
+        m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
+*/
+        m.enableLayer('unhcr.pop_flow'); //displacement arrows
+        m.disableLayer('unhcr.UNHCR-Offices'); // offices
+        m.disableLayer('unhcr.map-hj83vh1a'); //intervention
+        m.disableLayer('unhcr.unhcr_2011_deploy'); // deployement
         return false;
       }
 
@@ -166,36 +200,60 @@ mapbox.load(baseLayers,function(o){
 /*
         m.addLayer(o[2].layer);
         m.removeLayerAt(1);
- */
-        m.disableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
+        *
+        m.disableLayer(mapbox.layer().id('unhcr.pop_flow'));
         m.disableLayer(mapbox.layer().id('unhcr.unhcr_exp_reg_2011')); //expenditure
         m.disableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
+        m.enableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
+        m.enableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
+ */
+        m.disableLayer('unhcr.pop_flow');
+        m.disableLayer('unhcr.unhcr_exp_reg_2011'); //expenditure
+        m.disableLayer('unhcr.map-hj83vh1a'); //intervention
+        
         m.addLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
-        m.addLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices    
-        m.ui.refresh();
-        m.interaction.refresh();
+        m.addLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // office
+        
+        m.enableLayer('unhcr.unhcr_2011_deploy'); // deployement
+        m.enableLayer('unhcr.UNHCR-Offices'); // offices
         return false;
       }
 
       document.getElementById('item').onclick = function() {
+          /*
         m.disableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
         m.disableLayer(mapbox.layer()().id('unhcr.unhcr_exp_reg_2011')); //expenditure
-        m.addLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
-        m.addLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention  
-        m.ui.refresh();
-        m.interaction.refresh();
+        m.enableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
+        m.enableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
+           */
+
+        m.disableLayer('unhcr.pop_flow'); //displacement arrows
+        m.disableLayer('unhcr.unhcr_2011_deploy'); // deployement
+        m.disableLayer('unhcr.unhcr_exp_reg_2011'); //expenditure
+        m.disableLayer('unhcr.UNHCR-Offices'); // offices
+        
+        m.addLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
+        m.enableLayer('unhcr.map-hj83vh1a'); //intervention
         return false;
       }
 
       document.getElementById('appeal').onclick = function() {
+          /*
         m.disableLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
         m.disableLayer(mapbox.layer().id('unhcr.unhcr_2011_deploy')); // deployement
         m.disableLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // offices
         m.disableLayer(mapbox.layer().id('unhcr.map-hj83vh1a')); //intervention
-        m.addLayer(mapbox.layer()().id('unhcr.unhcr_exp_reg_2011')); //expenditure  
-        m.ui.refresh();
-        m.interaction.refresh();
+        m.enableLayer(mapbox.layer().id('unhcr.unhcr_exp_reg_2011')); //expenditure
+ */
+
+        m.disableLayer('unhcr.pop_flow'); //displacement arrows
+        m.disableLayer('unhcr.unhcr_2011_deploy'); // deployement
+        m.disableLayer('unhcr.UNHCR-Offices'); // offices
+        m.disableLayer('unhcr.map-hj83vh1a'); //intervention
+        
+        m.addLayer(mapbox.layer().id('unhcr.unhcr_exp_reg_2011')); //expenditure
+        m.enableLayer('unhcr.unhcr_exp_reg_2011'); //expenditure
         return false;
       }
 /**/
