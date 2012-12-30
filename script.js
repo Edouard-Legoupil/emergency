@@ -75,7 +75,7 @@ mapbox.load(baseLayers,function(o){
         m.centerzoom({ lat: 5, lon: 45 }, 3, true);
         m.setZoomRange(2, 8);
         m.smooth(true);
-});
+
 
     // add layers
         m.addLayer(mapbox.layer().id('unhcr.map-sclu9410'));// base layer 
@@ -83,6 +83,8 @@ mapbox.load(baseLayers,function(o){
         m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows 
         m.addLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // office 
         m.addLayer(mapbox.layer().id('unhcr.unhcr_exp_reg_2011')); //expenditure 
+
+});
 
     // Run easings when certain links are clicked
 
