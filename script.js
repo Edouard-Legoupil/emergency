@@ -100,6 +100,7 @@ mapbox.load(baseLayers,function(o){
         m.disableLayer('unhcr.UNHCR-Offices'); // offices
         m.disableLayer('unhcr.unhcr-global-relief'); //intervention
         m.disableLayer('unhcr.unhcr-global-staff'); // deployement
+        m.disableLayer('unhcr.unhcr-global-pct-funded'); //expenditure
         return false;
       }
       document.getElementById('syr').onclick = function() {
@@ -108,6 +109,7 @@ mapbox.load(baseLayers,function(o){
         m.disableLayer('unhcr.UNHCR-Offices'); // offices
         m.disableLayer('unhcr.unhcr-global-relief'); //intervention
         m.disableLayer('unhcr.unhcr-global-staff'); // deployement
+        m.disableLayer('unhcr.unhcr-global-pct-funded'); //expenditure
         return false;
       }
       document.getElementById('mli').onclick = function() {
@@ -116,6 +118,7 @@ mapbox.load(baseLayers,function(o){
         m.disableLayer('unhcr.UNHCR-Offices'); // offices
         m.disableLayer('unhcr.unhcr-global-relief'); //intervention
         m.disableLayer('unhcr.unhcr-global-staff'); // deployement
+        m.disableLayer('unhcr.unhcr-global-pct-funded'); //expenditure
         return false;
       }
       document.getElementById('ssd').onclick = function() {
@@ -124,6 +127,7 @@ mapbox.load(baseLayers,function(o){
         m.disableLayer('unhcr.UNHCR-Offices'); // offices
         m.disableLayer('unhcr.unhcr-global-relief'); //intervention
         m.disableLayer('unhcr.unhcr-global-staff'); // deployement
+        m.disableLayer('unhcr.unhcr-global-pct-funded'); //expenditure
         return false;
       }
       document.getElementById('kiv').onclick = function() {
@@ -132,12 +136,13 @@ mapbox.load(baseLayers,function(o){
         m.disableLayer('unhcr.UNHCR-Offices'); // offices
         m.disableLayer('unhcr.unhcr-global-relief'); //intervention
         m.disableLayer('unhcr.unhcr-global-staff'); // deployement
+        m.disableLayer('unhcr.unhcr-global-pct-funded'); //expenditure
         return false;
       }
 
       document.getElementById('staff').onclick = function() {
         m.disableLayer('unhcr.pop_flow');
-        m.disableLayer('unhcr.unhcr_exp_reg_2011'); //expenditure
+        m.disableLayer('unhcr.unhcr-global-pct-funded'); //expenditure
         m.disableLayer('unhcr.unhcr-global-relief'); //intervention    
         m.enableLayer('unhcr.unhcr-global-staff'); // deployement
         m.enableLayer('unhcr.UNHCR-Offices'); // offices
