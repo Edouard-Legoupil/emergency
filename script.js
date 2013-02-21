@@ -80,6 +80,7 @@ mapbox.load(baseLayers,function(o){
     // add layers
         m.addLayer(mapbox.layer().id('unhcr.map-x6lwltoe'));// base layer  
         m.addLayer(mapbox.layer().id('unhcr.UNHCR-Offices')); // office
+        m.addLayer(mapbox.layer().id('unhcr-global-emergencies')); // emergency layer
      //   m.addLayer(mapbox.layer().id('unhcr.pop_flow')); //displacement arrows
      //   m.addLayer(mapbox.layer().id('unhcr.unhcr-global-relief')); //intervention
      //   m.addLayer(mapbox.layer().id('unhcr.unhcr-global-staff')); // deployement 
