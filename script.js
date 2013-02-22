@@ -58,11 +58,11 @@ function isTouchDevice(e) {
 
 // pusuh all layers in one array
 baseLayers =[];
-baseLayers.push('unhcr.map-x6lwltoe');// base layer index 0
+baseLayers.push('unhcr.map-x6lwltoe,unhcr-global-emergencies');// base layer index 0
 
 mapbox.load(baseLayers,function(o){
         m = mapbox.map('map');
-        //m.addLayer(o[0].layer);
+        m.addLayer(o[0].layer);
         m.ui.zoomer.add();
         m.ui.fullscreen.add();
         m.ui.zoombox.add();
