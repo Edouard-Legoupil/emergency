@@ -62,7 +62,7 @@ baseLayers.push('unhcr.map-x6lwltoe');// base layer index 0
 
 mapbox.load(baseLayers,function(o){
         m = mapbox.map('map');
-        m.addLayer(o[1].layer);
+        //m.addLayer(o[0].layer);
         m.ui.zoomer.add();
         m.ui.fullscreen.add();
         m.ui.zoombox.add();
